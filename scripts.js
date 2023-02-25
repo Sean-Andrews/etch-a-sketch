@@ -1,8 +1,27 @@
-let board = document.getElementById("game-area");
+let board = document.getElementById('game-area');
+let sizeBtn = document.getElementById('game-size');
+let clearBtn = document.getElementById('clear-btn');
 let square = [];
 let mouseMove = false;
 
+sizeBtn.addEventListener('click', newSize);
+clearBtn.addEventListener('click', eraseGrid);
+
+
 createGrid(16);
+
+function newSize() {
+    deleteGrid();
+    let pixelSize = prompt("Pick a number between 1 and 100.")
+    if (+pixelSize > 100) {
+        alert("That number was too high");
+        newSize();
+    } else if (+pixelSize < 1) {
+        alert("That number was too low");
+        newSize();
+    }
+    createGrid(+pixelSize);
+}
 
 function createGrid(size) {
     for (let i = 1; i <= size; i++) {
@@ -16,14 +35,23 @@ function createGrid(size) {
         }
         board.appendChild(row);
     }
+    addEventListeners();
+}
+
+function deleteGrid() {
+    while (board.firstChild) {
+        board.removeChild(board.lastChild);
+    }
 }
 
 
-for (let i = 0; i < square.length; i++) {
-    square[i].addEventListener('mousedown', mouseClickListener);
-    square[i].addEventListener('mousemove', mouseMoveListener);
-    square[i].addEventListener('mouseup', mouseUpListener);
-}    
+function addEventListeners() {
+    for (let i = 0; i < square.length; i++) {
+        square[i].addEventListener('mousedown', mouseClickListener);
+        square[i].addEventListener('mousemove', mouseMoveListener);
+        square[i].addEventListener('mouseup', mouseUpListener);
+    }  
+}  
 
 function mouseClickListener() {
     this.style.backgroundColor = 'black';
@@ -32,13 +60,22 @@ function mouseClickListener() {
 
 function mouseMoveListener() {
     if (mouseMove === true) {
-        this.style.backgroundColor = 'black'
+        this.style.backgroundColor = 'black';
     }
 }
 
 function mouseUpListener() {
     mouseMove = false;
 }
+
+function eraseGrid() {
+    let gridSquares = document.getElementsByClassName("box");
+    for (let i = 0; i < gridSquares.length; i++) {
+        gridSquares[i].style.backgroundColor = '#ddd';
+    }
+}
+
+
 
 // square.forEach(function (box) {
 //     if (mouseMove === false) {
