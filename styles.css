@@ -22,7 +22,7 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    background-color: #ddd;
+    background-color: hsl(0, 0%, 86.7%);
 }
 
 .row {
@@ -34,5 +34,10 @@ body {
     flex: 1;
     border-left: 1px solid #ddd;
     margin: 1px;
+}
+
+.btn-on {
+    background-color: black;
+    color: white;
 }
 

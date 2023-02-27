@@ -1,12 +1,15 @@
 let board = document.getElementById('game-area');
 let sizeBtn = document.getElementById('game-size');
 let clearBtn = document.getElementById('clear-btn');
+let shadeBtn = document.getElementById('shade-btn');
 let square = [];
 let mouseMove = false;
+let shadeProp = false;
+
 
 sizeBtn.addEventListener('click', newSize);
 clearBtn.addEventListener('click', eraseGrid);
-
+shadeBtn.addEventListener('click', addShade);
 
 createGrid(16);
 
@@ -54,13 +57,38 @@ function addEventListeners() {
 }  
 
 function mouseClickListener() {
-    this.style.backgroundColor = 'black';
+    if (shadeProp === false) {
+        this.style.backgroundColor = 'black';
+    } else if (shadeProp === true) {
+        if (!this.style.backgroundColor) {
+            this.style.backgroundColor = 'rgb(196, 196, 196)'
+        } else if (this.style.backgroundColor) {
+            let currentColor = this.style.backgroundColor;
+            this.style.backgroundColor = shadeColor(currentColor, 10);
+        }
+    }
     mouseMove = true;
 }
 
+function shadeColor(color, percent) {
+    let colorValues = color.slice(4, -1).split(', ');
+    let r = +colorValues[0] - (+colorValues[0] / percent);
+    let g = +colorValues[1] - (+colorValues[1] / percent);
+    let b = +colorValues[2] - (+colorValues[2] / percent);
+    let newColor = `rgb(${r}, ${g}, ${b})`;
+    return newColor;
+}
+
 function mouseMoveListener() {
-    if (mouseMove === true) {
+    if (shadeProp === false && mouseMove === true) {
         this.style.backgroundColor = 'black';
+    } else if (shadeProp === true && mouseMove === true) {
+        if (!this.style.backgroundColor) {
+            this.style.backgroundColor = 'rgb(196, 196, 196)'
+        } else if (this.style.backgroundColor) {
+            let currentColor = this.style.backgroundColor;
+            this.style.backgroundColor = shadeColor(currentColor, 10);
+        }
     }
 }
 
@@ -72,6 +100,16 @@ function eraseGrid() {
     let gridSquares = document.getElementsByClassName("box");
     for (let i = 0; i < gridSquares.length; i++) {
         gridSquares[i].style.backgroundColor = '#ddd';
+    }
+}
+
+function addShade() {
+    if (shadeProp === false) {
+        shadeProp = true;
+        shadeBtn.classList.add('btn-on')
+    } else if (shadeProp === true) {
+        shadeProp = false;
+        shadeBtn.classList.remove('btn-on');
     }
 }
 
