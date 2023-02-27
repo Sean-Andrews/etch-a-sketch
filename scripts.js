@@ -2,14 +2,17 @@ let board = document.getElementById('game-area');
 let sizeBtn = document.getElementById('game-size');
 let clearBtn = document.getElementById('clear-btn');
 let shadeBtn = document.getElementById('shade-btn');
+let crazyBtn = document.getElementById('crazy-btn');
 let square = [];
 let mouseMove = false;
 let shadeProp = false;
+let crazyProp = false;
 
 
 sizeBtn.addEventListener('click', newSize);
 clearBtn.addEventListener('click', eraseGrid);
 shadeBtn.addEventListener('click', addShade);
+crazyBtn.addEventListener('click', addCrazy);
 
 createGrid(16);
 
@@ -57,17 +60,27 @@ function addEventListeners() {
 }  
 
 function mouseClickListener() {
-    if (shadeProp === false) {
+    if (shadeProp === false && crazyProp === false) {
         this.style.backgroundColor = 'black';
-    } else if (shadeProp === true) {
+    } else if (shadeProp === true && crazyProp === false) {
         if (!this.style.backgroundColor) {
             this.style.backgroundColor = 'rgb(196, 196, 196)'
         } else if (this.style.backgroundColor) {
             let currentColor = this.style.backgroundColor;
             this.style.backgroundColor = shadeColor(currentColor, 10);
         }
+    } else if (crazyProp === true) {
+        this.style.backgroundColor = crazyColor();
     }
     mouseMove = true;
+}
+
+function crazyColor() {
+    let r = Math. floor((Math. random() * 255) + 1);
+    let g = Math. floor((Math. random() * 255) + 1);
+    let b = Math. floor((Math. random() * 255) + 1);
+    let newColor = `rgb(${r}, ${g}, ${b})`;
+    return newColor;
 }
 
 function shadeColor(color, percent) {
@@ -80,15 +93,17 @@ function shadeColor(color, percent) {
 }
 
 function mouseMoveListener() {
-    if (shadeProp === false && mouseMove === true) {
+    if (shadeProp === false && mouseMove === true && crazyProp === false) {
         this.style.backgroundColor = 'black';
-    } else if (shadeProp === true && mouseMove === true) {
+    } else if (shadeProp === true && mouseMove === true && crazyProp === false) {
         if (!this.style.backgroundColor) {
             this.style.backgroundColor = 'rgb(196, 196, 196)'
         } else if (this.style.backgroundColor) {
             let currentColor = this.style.backgroundColor;
             this.style.backgroundColor = shadeColor(currentColor, 10);
         }
+    } else if (crazyProp === true && mouseMove === true) {
+        this.style.backgroundColor = crazyColor();
     }
 }
 
@@ -113,6 +128,15 @@ function addShade() {
     }
 }
 
+function addCrazy() {
+    if (crazyProp === false) {
+        crazyProp = true;
+        crazyBtn.classList.add('btn-on')
+    } else if (crazyProp === true) {
+        crazyProp = false;
+        crazyBtn.classList.remove('btn-on');
+    }
+}
 
 
 // square.forEach(function (box) {
