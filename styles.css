@@ -8,11 +8,13 @@
 body {
     height: 100vh;
     width: 100vw;
+    background-image: linear-gradient(to bottom right, blue, purple);
 }
 
 #title {
     text-align: center;
     margin: 30px 0;
+    color: white;
 }
 
 #game-area {
@@ -47,7 +49,6 @@ button {
 
 .box {
     flex: 1;
-    border-left: 1px solid #ddd;
     margin: 1px;
 }
 
