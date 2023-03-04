@@ -16,18 +16,7 @@ crazyBtn.addEventListener('click', addCrazy);
 
 createGrid(16);
 
-function newSize() {
-    deleteGrid();
-    let pixelSize = prompt("Pick a number between 1 and 100.")
-    if (+pixelSize > 100) {
-        alert("That number was too high");
-        newSize();
-    } else if (+pixelSize < 1) {
-        alert("That number was too low");
-        newSize();
-    }
-    createGrid(+pixelSize);
-}
+// Functions for basic grid setup, resizing, and deletion
 
 function createGrid(size) {
     for (let i = 1; i <= size; i++) {
@@ -41,7 +30,20 @@ function createGrid(size) {
         }
         board.appendChild(row);
     }
-    addEventListeners();
+    addEventListeners(); 
+}
+
+function newSize() {
+    deleteGrid();
+    let pixelSize = prompt("Pick a number between 1 and 100.")
+    if (+pixelSize > 100) {
+        alert("That number was too high");
+        newSize();
+    } else if (+pixelSize < 1) {
+        alert("That number was too low");
+        newSize();
+    }
+    createGrid(+pixelSize);
 }
 
 function deleteGrid() {
@@ -50,6 +52,14 @@ function deleteGrid() {
     }
 }
 
+function eraseGrid() {
+    let gridSquares = document.getElementsByClassName("box");
+    for (let i = 0; i < gridSquares.length; i++) {
+        gridSquares[i].style.backgroundColor = '#ddd';
+    }
+}
+
+// Button functionality
 
 function addEventListeners() {
     for (let i = 0; i < square.length; i++) {
@@ -75,23 +85,6 @@ function mouseClickListener() {
     mouseMove = true;
 }
 
-function crazyColor() {
-    let r = Math. floor((Math. random() * 255) + 1);
-    let g = Math. floor((Math. random() * 255) + 1);
-    let b = Math. floor((Math. random() * 255) + 1);
-    let newColor = `rgb(${r}, ${g}, ${b})`;
-    return newColor;
-}
-
-function shadeColor(color, percent) {
-    let colorValues = color.slice(4, -1).split(', ');
-    let r = +colorValues[0] - (+colorValues[0] / percent);
-    let g = +colorValues[1] - (+colorValues[1] / percent);
-    let b = +colorValues[2] - (+colorValues[2] / percent);
-    let newColor = `rgb(${r}, ${g}, ${b})`;
-    return newColor;
-}
-
 function mouseMoveListener() {
     if (shadeProp === false && mouseMove === true && crazyProp === false) {
         this.style.backgroundColor = 'black';
@@ -111,10 +104,38 @@ function mouseUpListener() {
     mouseMove = false;
 }
 
-function eraseGrid() {
-    let gridSquares = document.getElementsByClassName("box");
-    for (let i = 0; i < gridSquares.length; i++) {
-        gridSquares[i].style.backgroundColor = '#ddd';
+// Different mode functionality
+
+function crazyColor() {
+    let r = Math. floor((Math. random() * 255) + 1);
+    let g = Math. floor((Math. random() * 255) + 1);
+    let b = Math. floor((Math. random() * 255) + 1);
+    let newColor = `rgb(${r}, ${g}, ${b})`;
+    return newColor;
+}
+
+function shadeColor(color, percent) {
+    let colorValues = color.slice(4, -1).split(', ');
+    let r = +colorValues[0] - (+colorValues[0] / percent);
+    let g = +colorValues[1] - (+colorValues[1] / percent);
+    let b = +colorValues[2] - (+colorValues[2] / percent);
+    let newColor = `rgb(${r}, ${g}, ${b})`;
+    return newColor;
+}
+
+
+
+
+
+// Boolean functions to change modes
+
+function addCrazy() {
+    if (crazyProp === false) {
+        crazyProp = true;
+        crazyBtn.classList.add('btn-on')
+    } else if (crazyProp === true) {
+        crazyProp = false;
+        crazyBtn.classList.remove('btn-on');
     }
 }
 
@@ -128,49 +149,3 @@ function addShade() {
     }
 }
 
-function addCrazy() {
-    if (crazyProp === false) {
-        crazyProp = true;
-        crazyBtn.classList.add('btn-on')
-    } else if (crazyProp === true) {
-        crazyProp = false;
-        crazyBtn.classList.remove('btn-on');
-    }
-}
-
-
-// square.forEach(function (box) {
-//     if (mouseMove === false) {
-//         box.addEventListener('click', () => {
-//             box.style.backgroundColor = 'black';
-//             box.addEventListener('mousemove', () => {
-//                 box.style.backgroundColor = 'black';
-//             })
-//         })
-//     }
-// })
-
-// function changeColor(box) {
-//     console.log(mouseMove);
-//     if (mouseMove === true) {
-//         box.addEventListener('mousemove', () => {
-//             box.style.backgroundColor = 'black';
-//         })
-//     } else if (mouseMove === false) {
-//         box.addEventListener('click', () => {
-//             box.style.backgroundColor = 'black';
-//             mouseMove = true;
-//             console.log(mouseMove);
-//         })
-//     }
-    // box.addEventListener('click', () => {
-    //     box.style.backgroundColor = 'black';
-    //     mouseMove = true;
-    //     console.log(mouseMove);
-    // })
-    // box.addEventListener('mousemove', () => {
-    //     if (mouseMove = false) {
-    //         console.log(mouseMove);
-    //     }
-    // })
-//}

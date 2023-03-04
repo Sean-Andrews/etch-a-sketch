@@ -49,7 +49,7 @@ button {
 
 .box {
     flex: 1;
-    margin: 1px;
+    border: 1px solid #b4b4b4;
 }
 
 .btn-on {
