@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Press Start 2P', cursive;
 }
 
 body {
@@ -27,14 +28,14 @@ body {
 
 #buttons {
     display: flex;
-    margin: -76px auto;
+    margin: -82px auto;
     width: 868px;
     justify-content: space-between;
 }
 
 button {
-    height: 70px;
-    width: 70px;
+    height: 80px;
+    width: 80px;
     border-radius: 50%;
     background-color: hsl(0, 0%, 86.7%);
 }
