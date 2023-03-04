@@ -64,7 +64,7 @@ function eraseGrid() {
 function addEventListeners() {
     for (let i = 0; i < square.length; i++) {
         square[i].addEventListener('mousedown', mouseClickListener);
-        square[i].addEventListener('mousemove', mouseMoveListener);
+        square[i].addEventListener('mouseenter', mouseEnterListener);
         square[i].addEventListener('mouseup', mouseUpListener);
     }  
 }  
@@ -85,7 +85,7 @@ function mouseClickListener() {
     mouseMove = true;
 }
 
-function mouseMoveListener() {
+function mouseEnterListener() {
     if (shadeProp === false && mouseMove === true && crazyProp === false) {
         this.style.backgroundColor = 'black';
     } else if (shadeProp === true && mouseMove === true && crazyProp === false) {
